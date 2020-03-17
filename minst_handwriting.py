@@ -1,3 +1,6 @@
+"""Pip install keras, tensorflow(Make sure It is on version 2.1.0)
+and sklearn. Also make sure your python """
+
 import keras
 from keras.datasets import mnist
 from keras.models import Sequential
