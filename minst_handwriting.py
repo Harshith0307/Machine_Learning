@@ -10,7 +10,7 @@ from keras import backend as K
 from sklearn import datasets, svm, metrics
 from sklearn.model_selection import train_test_split
 
-def load_minst_data(test_size_per):
+def load_mnist_data(test_size_per):
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
     print(x_train.shape, y_train.shape)
     x_train, x_test, y_train, y_test = train_test_split(
@@ -76,7 +76,7 @@ training_sets = [100, 200, 500, 750, 1500, 2000, 5000, 6000, 10000, 20000, 40000
 for test_per in training_sets:
     training_per = 1- (test_per/60000) #calculation is giving the test percentage
     print(training_per)
-    x_train, y_train, x_test, y_test = load_minst_data(training_per)
+    x_train, y_train, x_test, y_test = load_mnist_data(training_per)
     print('Testing with train set size of: ', x_train.shape)
     x_train, y_train, x_test, y_test = prepare_input(x_train, y_train, x_test, y_test)
     score = setup_model(x_train, y_train, x_test, y_test)
