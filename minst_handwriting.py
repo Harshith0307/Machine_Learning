@@ -99,15 +99,10 @@ print(summary_values)
 #Data Table
 print(df)
 
-#graphs
+#graph
 #Line Graph
 line_graph = df.plot(kind='line',x='Amount of Training images',y='Accuracy',color='red',  xticks=[0,500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000], 
         yticks=[0,500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000], figsize=(20,10))
 line_graph.set(title="How changing the amount of Training data impacts the accuracy", xlabel="Amount of training images", ylabel="Accuracy")
 plt.show()
 
-#Bar Graph
-bar_graph = df.plot(kind='bar',x='Amount of Training images',y='Accuracy',color='green',  xticks=[0,500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000], 
-        yticks=[0,500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000], figsize=(20,10))
-bar_graph.set(title="How changing the amount of Training data impacts the accuracy", xlabel="Amount of training images", ylabel="Accuracy")
-plt.show()
