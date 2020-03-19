@@ -1,5 +1,5 @@
 """Pip install keras, tensorflow(Make sure It is on version 2.1.0)
-and sklearn. Also make sure your python is on 3.7.6"""
+, pandas, matplotlib, and sklearn. Also make sure your python is on 3.7.6"""
 
 import keras
 from keras.datasets import mnist
@@ -9,6 +9,8 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
 from sklearn import datasets, svm, metrics
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import pandas as pd
 
 def load_mnist_data(test_size_per):
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -68,10 +70,14 @@ def setup_model(x_train, y_train, x_test, y_test ):
 
     return score
 
+
 summary_values = {}
 
 #Takes increasingly more images to increase the accuracy
-training_sets = [100, 200, 500, 750, 1500, 2000, 5000, 6000, 10000, 20000, 40000, 50000]
+training_sets = [50, 100, 200, 500, 750, 1500, 2000, 5000, 6000, 8000, 10000]
+j = 0
+column_names = ["Amount of Training images", "Accuracy"]
+df = pd.DataFrame(columns = column_names, index = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
 
 for test_per in training_sets:
     training_per = 1- (test_per/60000) #calculation is giving the test percentage
@@ -81,5 +87,27 @@ for test_per in training_sets:
     x_train, y_train, x_test, y_test = prepare_input(x_train, y_train, x_test, y_test)
     score = setup_model(x_train, y_train, x_test, y_test)
     summary_values[x_train.shape] = {test_per/100, score[0], score[1]}
+    i = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    new_data_list = [test_per, score[1]]
+    df.loc[i[j]] = new_data_list
+    j += 1
+
 
 print(summary_values)
+
+
+#Data Table
+print(df)
+
+#graphs
+#Line Graph
+line_graph = df.plot(kind='line',x='Amount of Training images',y='Accuracy',color='red',  xticks=[0,500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000], 
+        yticks=[0,500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000], figsize=(20,10))
+line_graph.set(title="How changing the amount of Training data impacts the accuracy", xlabel="Amount of training images", ylabel="Accuracy")
+plt.show()
+
+#Bar Graph
+bar_graph = df.plot(kind='bar',x='Amount of Training images',y='Accuracy',color='green',  xticks=[0,500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000], 
+        yticks=[0,500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000], figsize=(20,10))
+bar_graph.set(title="How changing the amount of Training data impacts the accuracy", xlabel="Amount of training images", ylabel="Accuracy")
+plt.show()
